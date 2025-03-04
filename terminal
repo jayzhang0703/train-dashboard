@@ -1,0 +1,1 @@
+mkdir -p src/{assets/{images,icons,styles},components/{layout,charts,map,monitor,statistics,common},pages,router,store/modules,services,utils,mock,types} 
