@@ -17,9 +17,15 @@
 
     <!-- 主要内容区 -->
     <div class="main-content">
-      <OperationOverview />
+      <div class="side-panel">
+        <OperationOverview />
+        <OperationMetrics />
+      </div>
       <TrainMonitor />
-      <AlertPanel />
+      <div class="side-panel">
+        <AlertPanel />
+        <StationStatus />
+      </div>
     </div>
   </div>
 </template>
@@ -27,8 +33,10 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import OperationOverview from '../dashboard/OperationOverview.vue'
+import OperationMetrics from '../dashboard/OperationMetrics.vue'
 import TrainMonitor from '../dashboard/TrainMonitor.vue'
 import AlertPanel from '../dashboard/AlertPanel.vue'
+import StationStatus from '../dashboard/StationStatus.vue'
 
 const currentDate = ref('')
 const currentTime = ref('')
@@ -55,6 +63,32 @@ onUnmounted(() => {
   }
 })
 </script>
+
+<style>
+/* 全局标题样式 */
+.module-header {
+  background: rgba(0, 33, 64, 0.6);
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.title-bar {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #fff;
+}
+
+.title-icon {
+  width: 4px;
+  height: 16px;
+  background: #1890ff;
+  margin-right: 8px;
+  border-radius: 2px;
+}
+</style>
 
 <style scoped>
 .layout-container {
@@ -140,9 +174,39 @@ onUnmounted(() => {
   height: calc(100vh - 50px);
 }
 
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 @media (max-width: 1600px) {
   .main-content {
     grid-template-columns: 320px 1fr 320px;
   }
+}
+
+/* 添加全局样式 */
+.module-title {
+  font-size: 16px;
+  color: #fff;
+  margin: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 33, 64, 0.6);
+  padding: 0 16px;
+  position: relative;
+}
+
+.module-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 16px;
+  background: #1890ff;
 }
 </style> 

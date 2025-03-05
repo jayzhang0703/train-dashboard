@@ -33,19 +33,22 @@ const trainMap = ref(null)
 }
 
 .module-header {
+  background: rgba(0, 33, 64, 0.6);
+  padding: 12px 16px;
   margin-bottom: 16px;
 }
 
 .title-bar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   font-size: 16px;
   color: #fff;
 }
 
 .title-icon {
-  width: 3px;
-  height: 14px;
+  width: 4px;
+  height: 16px;
   background: #1890ff;
   margin-right: 8px;
   border-radius: 2px;

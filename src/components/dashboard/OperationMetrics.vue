@@ -3,23 +3,26 @@
     <div class="module-header">
       <div class="title-bar">
         <i class="title-icon"></i>
-        实时运行概况
+        运行效率分析
       </div>
     </div>
-    <div class="status-numbers">
-      <div v-for="(item, index) in statusData" 
-           :key="item.type" 
-           class="status-item"
-           :class="{ 'fade-in': show }"
-           :style="{ animationDelay: `${index * 0.1}s` }">
-        <span :class="['dot', item.type]"></span>
-        <span class="label">{{ item.label }}</span>
-        <span class="value">
-          <CountUp :endVal="item.value" :duration="2" />
-        </span>
+    <div class="metrics-content">
+      <div class="metrics-cards">
+        <div class="metric-card">
+          <div class="metric-value">
+            <CountUp :endVal="98.5" :decimals="1" :duration="2" suffix="%" />
+          </div>
+          <div class="metric-label">准点率</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">
+            <CountUp :endVal="94.2" :decimals="1" :duration="2" suffix="%" />
+          </div>
+          <div class="metric-label">运行效率</div>
+        </div>
       </div>
+      <div class="efficiency-chart" ref="efficiencyChart"></div>
     </div>
-    <div class="metrics-chart" ref="metricsChart"></div>
   </div>
 </template>
 
@@ -28,19 +31,10 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
 import CountUp from 'vue-countup-v3'
 
-const show = ref(false)
-const metricsChart = ref(null)
+const efficiencyChart = ref(null)
 let chart = null
 
-const statusData = ref([
-  { type: 'running', label: '运行中', value: 45 },
-  { type: 'loading', label: '装卸货', value: 12 },
-  { type: 'waiting', label: '待发车', value: 8 },
-  { type: 'maintenance', label: '检修中', value: 3 }
-])
-
 onMounted(() => {
-  show.value = true
   initChart()
   window.addEventListener('resize', handleResize)
 })
@@ -55,9 +49,9 @@ const handleResize = () => {
 }
 
 const initChart = () => {
-  if (!metricsChart.value) return
+  if (!efficiencyChart.value) return
   
-  chart = echarts.init(metricsChart.value)
+  chart = echarts.init(efficiencyChart.value)
   const option = {
     backgroundColor: 'transparent',
     grid: {
@@ -91,7 +85,7 @@ const initChart = () => {
     },
     series: [
       {
-        data: [30, 42, 51, 74, 33, 68],
+        data: [92, 95, 88, 96, 93, 94],
         type: 'line',
         smooth: true,
         symbol: 'circle',
@@ -125,6 +119,9 @@ const initChart = () => {
   border: 1px solid rgba(24, 144, 255, 0.1);
   border-radius: 4px;
   padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .module-header {
@@ -148,72 +145,40 @@ const initChart = () => {
   border-radius: 2px;
 }
 
-.metrics-chart {
-  height: 200px;
-  margin-top: 20px;
+.metrics-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-.status-numbers {
+.metrics-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
-.status-item {
+.metric-card {
   background: rgba(0, 33, 64, 0.3);
   border: 1px solid rgba(24, 144, 255, 0.1);
   border-radius: 4px;
-  padding: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  padding: 16px;
+  text-align: center;
 }
 
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-.dot.running { background: #1890ff; }
-.dot.loading { background: #52c41a; }
-.dot.waiting { background: #faad14; }
-.dot.maintenance { background: #f5222d; }
-
-.status-item .label {
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 14px;
-}
-
-.status-item .value {
-  margin-left: auto;
-  font-size: 18px;
+.metric-value {
+  font-size: 24px;
   font-weight: 500;
-  color: #fff;
+  color: #1890ff;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.metric-label {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.65);
 }
 
-.fade-in {
-  animation: fadeIn 0.5s ease forwards;
-  opacity: 0;
-}
-
-.status-item {
-  transition: all 0.3s ease;
-}
-
-.status-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.efficiency-chart {
+  flex: 1;
+  min-height: 180px;
 }
 </style> 

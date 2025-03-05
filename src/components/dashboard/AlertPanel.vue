@@ -39,6 +39,8 @@ const alerts = ref([
 }
 
 .module-header {
+  background: rgba(0, 33, 64, 0.6);
+  padding: 12px 16px;
   margin-bottom: 16px;
 }
 
@@ -50,15 +52,11 @@ const alerts = ref([
 }
 
 .title-icon {
-  width: 3px;
-  height: 14px;
-  background: #1890ff;
+  width: 4px;
+  height: 16px;
+  background: #faad14;
   margin-right: 8px;
   border-radius: 2px;
-}
-
-.title-icon.warning {
-  background: #faad14;
 }
 
 .alert-badge {
