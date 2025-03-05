@@ -65,13 +65,18 @@ onUnmounted(() => {
 </script>
 
 <style>
-/* 全局标题样式 */
+/* 全局样式 */
+.panel-card {
+  background: rgba(0, 33, 64, 0.4);
+  border: 1px solid rgba(24, 144, 255, 0.1);
+  border-radius: 4px;
+  padding: 16px;
+}
+
 .module-header {
-  background: rgba(0, 33, 64, 0.6);
   padding: 12px 16px;
   margin-bottom: 16px;
-  display: flex;
-  align-items: center;
+  margin-left: -16px; /* 保持向左对齐 */
 }
 
 .title-bar {
@@ -87,6 +92,15 @@ onUnmounted(() => {
   background: #1890ff;
   margin-right: 8px;
   border-radius: 2px;
+}
+
+/* 内容区域保持左对齐 */
+.status-numbers,
+.metrics-content,
+.alert-list,
+.station-list {
+  margin-left: -16px;
+  padding-left: 16px;
 }
 </style>
 
